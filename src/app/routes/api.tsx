@@ -1,4 +1,4 @@
-import { app } from "~/api/main"
+import { app } from "~/api/app"
 
 import type { Route } from "./+types/api"
 
