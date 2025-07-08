@@ -1,13 +1,15 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["vite.config.ts"],
+
   "compilerOptions": {
     "composite": true,
-    "strict": true,
-    "types": ["node"],
-    "lib": ["ES2022"],
-    "target": "ES2022",
-    "module": "ES2022",
-    "moduleResolution": "bundler"
-  }
+
+    "target": "esnext",
+    "lib": ["ESNext"],
+    "module": "esnext",
+
+    "types": ["node"]
+  },
+
+  "include": ["*.config.*"]
 }

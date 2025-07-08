@@ -1,17 +1,27 @@
 {
-  "files": [],
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "checkJs": true,
+    "allowJs": true,
+
+    "moduleResolution": "bundler",
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    "types": ["./worker-configuration.d.ts"]
+  },
+
   "references": [
     { "path": "./tsconfig.node.json" },
     { "path": "./tsconfig.cloudflare.json" }
   ],
-  "compilerOptions": {
-    "checkJs": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "types": [
-        "./worker-configuration.d.ts"
-    ]
-  }
+
+  "files": []
 }
