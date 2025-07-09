@@ -26,10 +26,9 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   test: {
-    include: ["**/*.test.ts"],
     browser: {
       enabled: false,
-      headless: false,
+      headless: true,
       provider: "playwright",
       instances: [{ browser: "chromium" }, { browser: "firefox" }],
     },
