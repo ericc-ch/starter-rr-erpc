@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.app.json",
+
+  "compilerOptions": {
+    "esModuleInterop": false
+  },
+
+  "include": [
+    ".react-router/types/**/*",
+    "src/**/*",
+    "workers/**/*",
+    "worker-configuration.d.ts"
+  ],
+  "exclude": []
+}

@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
 
-    "types": ["vite/client"],
+    "types": ["vite/client", "@vitest/browser/providers/playwright"],
 
     "baseUrl": ".",
     "rootDirs": [".", "./.react-router/types"],
@@ -25,5 +25,6 @@
     "src/**/*",
     "workers/**/*",
     "worker-configuration.d.ts"
-  ]
+  ],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
 }

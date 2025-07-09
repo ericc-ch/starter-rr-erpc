@@ -1,6 +1,4 @@
-import type { Route } from "./+types/home"
-
-import { Welcome } from "../welcome/welcome"
+import type { Route } from "./+types/_route"
 
 export function meta() {
   return [
@@ -14,5 +12,5 @@ export function loader({ context }: Route.LoaderArgs) {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  return <Welcome message={loaderData.message} />
+  return <div>{loaderData.message}</div>
 }
