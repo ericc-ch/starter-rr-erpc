@@ -1,7 +1,16 @@
 import type { Context } from "hono"
 
-export const listBooks = (c: Context) => {
-  return c.json({ message: "List of all books" })
+import type { Bindings } from "~/api/bindings"
+
+import { getDB } from "~/db/db"
+import { booksTable } from "~/db/schemas/books.sql"
+
+export const listBooks = async (c: Context<Bindings>) => {
+  const db = getDB(c.env.cloudflare.env.DB)
+  console.log(db)
+
+  const books = await db.select().from(booksTable)
+  return c.json({ books })
 }
 
 export const getBook = (c: Context) => {
