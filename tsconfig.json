@@ -4,6 +4,7 @@
     "checkJs": true,
     "allowJs": true,
 
+    "module": "ES2022",
     "moduleResolution": "bundler",
     "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true,
@@ -19,8 +20,8 @@
   },
 
   "references": [
+    { "path": "./tsconfig.cloudflare.json" },
     { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.cloudflare.json" }
   ],
 
   "files": []

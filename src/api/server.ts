@@ -1,12 +1,11 @@
 import { Hono } from "hono"
+import { logger } from "hono/logger"
 
-const server = new Hono().basePath("/api")
+import { routes } from "./routes/routes"
 
-server.get("/", (c) =>
-  c.json({
-    req: c.req,
-    var: c.var,
-  }),
-)
+export const server = new Hono()
+  .basePath("/api")
+  .use(logger())
+  .route("/", routes)
 
-export { server }
+export type ServerType = typeof server

@@ -4,9 +4,8 @@
   "compilerOptions": {
     "composite": true,
 
-    "target": "esnext",
-    "lib": ["ESNext"],
-    "module": "esnext",
+    "target": "es2022",
+    "lib": ["ES2022"],
 
     "types": ["node"]
   },
