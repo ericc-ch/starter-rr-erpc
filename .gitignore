@@ -15,6 +15,5 @@ worker-configuration.d.ts
 # ESLint
 .eslintcache
 
-
 # Drizzle, uncomment when you have migrations
 drizzle/
