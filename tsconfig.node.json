@@ -4,7 +4,6 @@
   "compilerOptions": {
     "composite": true,
 
-    "target": "es2022",
     "lib": ["ES2022"],
 
     "types": ["node"]

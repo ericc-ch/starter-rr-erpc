@@ -1,6 +1,9 @@
 import config from "@echristian/eslint-config"
 
-export default config(
+/**
+ * @type {import("@echristian/eslint-config").Config}
+ */
+const eslintConfig = config(
   {
     ignores: ["worker-configuration.d.ts"],
     jsx: {
@@ -20,3 +23,5 @@ export default config(
     },
   },
 )
+
+export default eslintConfig

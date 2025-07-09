@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
+    "target": "ES2022",
     "skipLibCheck": true,
-    "checkJs": true,
     "allowJs": true,
 
     "module": "ES2022",
@@ -22,7 +22,7 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.test.json" },
-    { "path": "./tsconfig.node.json" },
+    { "path": "./tsconfig.node.json" }
   ],
 
   "files": []

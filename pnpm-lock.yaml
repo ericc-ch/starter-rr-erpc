@@ -37,8 +37,8 @@ importers:
         specifier: ^1.9.1
         version: 1.9.1(rollup@4.44.2)(vite@7.0.3(@types/node@20.19.6)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.8.0))(workerd@1.20250705.0)(wrangler@4.24.0)
       '@echristian/eslint-config':
-        specifier: ^0.0.44
-        version: 0.0.44(@types/estree@1.0.8)(@typescript-eslint/eslint-plugin@8.36.0(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(jsonc-eslint-parser@2.4.0)(ts-api-utils@2.1.0(typescript@5.8.3))(typescript@5.8.3)
+        specifier: ^0.0.45
+        version: 0.0.45(@types/estree@1.0.8)(@typescript-eslint/eslint-plugin@8.36.0(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(jsonc-eslint-parser@2.4.0)(ts-api-utils@2.1.0(typescript@5.8.3))(typescript@5.8.3)
       '@react-router/dev':
         specifier: ^7.6.3
         version: 7.6.3(@types/node@20.19.6)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3)(vite@7.0.3(@types/node@20.19.6)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.8.0))(wrangler@4.24.0)(yaml@2.8.0)
@@ -292,8 +292,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@echristian/eslint-config@0.0.44':
-    resolution: {integrity: sha512-amKjvzEHEmvwpAY+3WPEjh7NqWUwxEwsIcGww+4GqqvQ9yP87jD1zpwsbV0NSfwf8U4+j73BFB66u2mCEeQcjA==}
+  '@echristian/eslint-config@0.0.45':
+    resolution: {integrity: sha512-TJ44KkEIw5Ob6Kk81Uh2AZD7duXZwTKKJvey/ARSrPwIyDOF8V1F0HuCuh8aib4s3gbSkbjvlc2pwcW0APZwAg==}
     peerDependencies:
       eslint: '>=9.0.0'
 
@@ -3632,7 +3632,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@echristian/eslint-config@0.0.44(@types/estree@1.0.8)(@typescript-eslint/eslint-plugin@8.36.0(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(jsonc-eslint-parser@2.4.0)(ts-api-utils@2.1.0(typescript@5.8.3))(typescript@5.8.3)':
+  '@echristian/eslint-config@0.0.45(@types/estree@1.0.8)(@typescript-eslint/eslint-plugin@8.36.0(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(jsonc-eslint-parser@2.4.0)(ts-api-utils@2.1.0(typescript@5.8.3))(typescript@5.8.3)':
     dependencies:
       '@eslint-react/eslint-plugin': 1.52.2(eslint@9.30.1(jiti@2.4.2))(ts-api-utils@2.1.0(typescript@5.8.3))(typescript@5.8.3)
       '@eslint/js': 9.30.1
