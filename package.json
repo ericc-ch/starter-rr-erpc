@@ -11,23 +11,24 @@
   "scripts": {
     "build": "react-router build",
     "cf-typegen": "wrangler types",
-    "deploy": "bun run build && wrangler deploy",
+    "deploy": "pnpm run build && wrangler deploy",
     "dev": "react-router dev",
     "lint": "eslint .",
-    "postinstall": "bun run cf-typegen",
+    "postinstall": "pnpm run cf-typegen",
     "prepare": "simple-git-hooks",
-    "preview": "bun run build && vite preview",
+    "preview": "pnpm run build && vite preview",
     "test": "vitest",
-    "typecheck": "bun run cf-typegen && react-router typegen && tsc -b"
+    "typecheck": "pnpm run cf-typegen && react-router typegen && tsc -b"
   },
   "simple-git-hooks": {
-    "pre-commit": "bunx lint-staged"
+    "pre-commit": "pnpm exec lint-staged"
   },
   "lint-staged": {
-    "*": "bun run lint --fix"
+    "*": "pnpm run lint --fix"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.7.0",
+    "effect": "^3.16.12",
     "hono": "^4.8.4",
     "isbot": "^5.1.28",
     "react": "^19.1.0",
@@ -55,5 +56,6 @@
     "vitest": "^3.2.4",
     "vitest-browser-react": "^1.0.0",
     "wrangler": "^4.24.0"
-  }
+  },
+  "packageManager": "pnpm@10.13.1"
 }

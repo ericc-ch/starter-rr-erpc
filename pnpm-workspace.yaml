@@ -1,0 +1,7 @@
+shellEmulator: true
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - esbuild
+  - sharp
+  - simple-git-hooks
+  - workerd
