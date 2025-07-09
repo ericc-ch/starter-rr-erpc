@@ -6,4 +6,6 @@ const bookSchema = z.object({
   author: z.string(),
 })
 
-export const validateBook = zValidator("json", bookSchema)
+export const getValidator = zValidator("param", z.object({ id: z.number() }))
+
+export const createValidator = zValidator("json", bookSchema)

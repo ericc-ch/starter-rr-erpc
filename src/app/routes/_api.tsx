@@ -9,3 +9,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 export async function action({ request, context }: Route.ActionArgs) {
   return await server.fetch(request, context)
 }
+
+/**
+ * Everything in this route is routed using Hono
+ * We're essentially mounting Hono router on top of React Router
+ */

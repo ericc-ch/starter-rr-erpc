@@ -1,9 +1,33 @@
 import { Hono } from "hono"
 
-import { listBooks, getBook, createBook } from "./handler"
-import { validateBook } from "./validator"
+import type { Bindings } from "~/api/bindings"
 
-export const books = new Hono()
+import { getDB } from "~/db/db.server"
+
+import { createBookHandler, listBooks } from "./handler"
+import { getValidator } from "./validator"
+
+/**
+ * Example API routes
+ */
+
+export const books = new Hono<Bindings>()
   .get("/", listBooks)
-  .get("/:id", getBook)
-  .post("/", validateBook, createBook)
+  /**
+   * Write route handler here to actually use c.req.valid (validator)
+   * I don't know yet how to supply the typing
+   */
+  .get("/:id", getValidator, (c) => {
+    const params = c.req.valid("param")
+    const db = getDB(c.env.cloudflare.env.DB)
+
+    const book = db.query.books.findFirst({
+      where: (books, { eq }) => eq(books.id, params.id),
+    })
+
+    return c.json({ book })
+  })
+  /**
+   * Adding route that is defined using `new Hono()`
+   */
+  .route("/", createBookHandler)

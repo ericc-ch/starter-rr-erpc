@@ -11,6 +11,11 @@ import { logger } from "hono/logger"
 
 import { routes } from "./routes/routes"
 
+/**
+ * The reason we're using method chaining is because
+ * somehow Hono RPC won't work without it, the typing is lost
+ */
+
 export const server = new Hono()
   .basePath("/api")
   .use(logger())
