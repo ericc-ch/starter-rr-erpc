@@ -1,79 +1,137 @@
-# Welcome to React Router!
+## How to Use This Starter Template
 
-A modern, production-ready template for building full-stack React applications using React Router.
+This starter is a full-stack React application using React Router, Hono for the API, Drizzle ORM for the database, and is deployed on Cloudflare Pages.
 
-## Features
+### Getting Started
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+1.  **Clone the repository and install dependencies:**
 
-## Getting Started
+    ```bash
+    git clone <your-repo-url>
+    cd <your-repo-name>
+    pnpm install
+    ```
 
-### Installation
+2.  **Set up your Cloudflare D1 Database:**
 
-Install the dependencies:
+    The project is configured to use Cloudflare D1. The `wrangler.jsonc` file contains the necessary configuration.
 
-```bash
-npm install
-```
+    - To run locally, you don't need to change anything. The development server will use a local version of D1.
+    - For staging and production, you will need to create your own D1 databases in your Cloudflare account and update the `database_id` in `wrangler.jsonc` for those environments.
 
-### Development
+3.  **Run the development server:**
 
-Start the development server with HMR:
+    ```bash
+    pnpm run dev
+    ```
 
-```bash
-npm run dev
-```
+    This command starts the Vite development server, and your application will be available at `http://localhost:5173`.
 
-Your application will be available at `http://localhost:5173`.
+### Project Structure
 
-## Previewing the Production Build
+- `src/app`: Contains the React frontend application, with routing handled by React Router.
+- `src/api`: Contains the Hono-based API server.
+- `src/db`: Includes database-related files, such as Drizzle schemas and the database connection setup.
+- `workers`: Contains the Cloudflare Worker entry point.
 
-Preview the production build locally:
+### Adding a New Page (React Router)
 
-```bash
-npm run preview
-```
+1.  Create a new directory under `src/app/routes`. For example, `src/app/routes/about`.
 
-## Building for Production
+2.  Inside this new directory, create a `_route.tsx` file. This file will contain your React component.
 
-Create a production build:
+    ```tsx
+    // src/app/routes/about/_route.tsx
+    export default function AboutPage() {
+      return <h1>About Us</h1>;
+    }
+    ```
 
-```bash
-npm run build
-```
+3.  Update `src/app/routes.ts` to include your new route.
 
-## Deployment
+    ```ts
+    import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
-Deployment is done using the Wrangler CLI.
+    export default [
+      index("./routes/home/_route.tsx"),
+      route("/about", "./routes/about/_route.tsx"), // Add your new route here
+      route("/api/*", "./routes/_api.tsx"),
+    ] satisfies RouteConfig;
+    ```
 
-To build and deploy directly to production:
+### Adding a New API Endpoint (Hono)
 
-```sh
-npm run deploy
-```
+The API routes are structured by feature under `src/api/routes`.
 
-To deploy a preview URL:
+1.  Create a new folder for your feature, for example, `src/api/routes/users`.
 
-```sh
-npx wrangler versions upload
-```
+2.  Inside this folder, create the following files:
 
-You can then promote a version to production after verification or roll it out progressively.
+    - `_route.ts`: Defines the Hono router for this endpoint.
+    - `handler.ts`: Contains the business logic for your route handlers.
+    - `validator.ts` (optional): Contains Zod schemas for validating request data.
 
-```sh
-npx wrangler versions deploy
-```
+3.  Wire up your new route in `src/api/routes/routes.ts`.
 
-## Styling
+    ```ts
+    import { Hono } from "hono";
+    import { books } from "./books/_route";
+    import { index } from "./index/_route";
+    import { users } from "./users/_route"; // Import your new route
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+    export const routes = new Hono()
+      .route("/", index)
+      .route("/books", books)
+      .route("/users", users); // Add your new route
+    ```
 
----
+### Interacting with the Database (Drizzle ORM)
 
-Built with ❤️ using React Router.
+1.  **Define your schema:** Create or modify a schema file in `src/db/schemas/`. For example, `books.sql.ts` defines the `books` table.
+
+2.  **Generate migrations:** After changing a schema, run the generate command:
+
+    ```bash
+    pnpm run db:generate
+    ```
+
+    This will create a new SQL migration file in the `drizzle` directory.
+
+3.  **Apply migrations:**
+
+    - **Local:**
+      ```bash
+      pnpm run db:migrate:local
+      ```
+    - **Staging/Production:** You'll need to update the `<staging-db>` placeholder in `package.json` and run the corresponding script.
+
+4.  **Query the database:** You can use the `getDB` function available in `src/db/db.server.ts` within your API handlers to get a Drizzle instance and query your database.
+
+    ```ts
+    // Example from src/api/routes/books/handler.ts
+    import { getDB } from "~/db/db.server";
+
+    export const listBooks = async (c: Context<Bindings>) => {
+      const db = getDB(c.env.cloudflare.env.DB);
+      const books = await db.query.books.findMany();
+      return c.json({ books });
+    };
+    ```
+
+### Deployment
+
+This starter is configured for deployment to **Cloudflare Pages**.
+
+1.  **Build your application:**
+
+    ```bash
+    pnpm run build
+    ```
+
+2.  **Deploy to production:**
+
+    ```bash
+    pnpm run deploy
+    ```
+
+    This command will build your application and deploy it using Wrangler to your configured Cloudflare account.
