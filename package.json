@@ -13,7 +13,7 @@
     "cf-typegen": "wrangler types",
     "deploy": "pnpm run build && wrangler deploy",
     "dev": "react-router dev",
-    "lint": "eslint .",
+    "lint": "eslint . --cache",
     "postinstall": "pnpm run cf-typegen",
     "prepare": "simple-git-hooks",
     "preview": "pnpm run build && vite preview",
