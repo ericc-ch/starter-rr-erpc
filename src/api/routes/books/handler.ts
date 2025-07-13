@@ -2,7 +2,7 @@ import { Hono, type Context } from "hono"
 
 import type { Bindings } from "~/api/bindings"
 
-import { getDB } from "~/db/db.server"
+import { getDB } from "~/db/database.server"
 import { books } from "~/db/schemas/books.sql"
 
 import { createValidator } from "./validator"

@@ -2,7 +2,7 @@ import { Hono } from "hono"
 
 import type { Bindings } from "~/api/bindings"
 
-import { getDB } from "~/db/db.server"
+import { getDB } from "~/db/database.server"
 
 import { createBookHandler, listBooks } from "./handler"
 import { getValidator } from "./validator"
