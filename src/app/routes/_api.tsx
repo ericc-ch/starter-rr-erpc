@@ -5,7 +5,7 @@ import { RuntimeContext } from "~/api/services/runtime-context"
 
 import type { Route } from "./+types/_api"
 
-const constRouteToHono = (params: Route.LoaderArgs) => {
+const routeToHono = (params: Route.LoaderArgs) => {
   const callHono = async () =>
     await server.fetch(params.request, params.context)
 
@@ -24,11 +24,11 @@ const constRouteToHono = (params: Route.LoaderArgs) => {
 }
 
 export async function loader(params: Route.LoaderArgs) {
-  return await constRouteToHono(params)
+  return await routeToHono(params)
 }
 
 export async function action(params: Route.LoaderArgs) {
-  return await constRouteToHono(params)
+  return await routeToHono(params)
 }
 
 /**
