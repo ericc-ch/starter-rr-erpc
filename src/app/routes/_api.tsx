@@ -1,9 +1,7 @@
 import { ConfigProvider, Effect, Layer, pipe } from "effect"
 
 import { server } from "~/api/api.server"
-import { Database } from "~/api/services/database"
 import { RuntimeContext } from "~/api/services/runtime-context"
-import { getDB } from "~/db/database.server"
 
 import type { Route } from "./+types/_api"
 
@@ -18,24 +16,11 @@ const constRouteToHono = (params: Route.LoaderArgs) => {
     }),
   )
 
-  const DatabaseLive = Layer.effect(
-    Database,
-    Effect.gen(function* () {
-      const context = yield* RuntimeContext
-      const db = getDB(context.context.cloudflare.env.DB)
-      return {
-        db,
-      }
-    }),
-  )
-
-  const MainLive = pipe(DatabaseLive, Layer.provide(RuntimeContextLive))
-
   const apiCall = pipe(
     Effect.tryPromise(() => callHono()),
     Effect.withConfigProvider(ConfigProvider.fromJson(params.context)),
   )
-  return pipe(Effect.provide(apiCall, MainLive), Effect.runPromise)
+  return pipe(Effect.provide(apiCall, RuntimeContextLive), Effect.runPromise)
 }
 
 export async function loader(params: Route.LoaderArgs) {

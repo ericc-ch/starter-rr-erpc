@@ -1,10 +1,8 @@
 import { Context } from "effect"
 
-import { getDB } from "~/db/database.server"
-
-export class Database extends Context.Tag("Database")<
-  Database,
+export class Books extends Context.Tag("Books")<
+  Books,
   {
-    readonly db: ReturnType<typeof getDB>
+    readonly list: () => Promise<unknown>
   }
 >() {}
