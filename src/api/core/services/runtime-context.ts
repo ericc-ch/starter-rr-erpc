@@ -1,6 +1,6 @@
 import { Context } from "effect"
 
-import type { Bindings } from "../bindings"
+import type { Bindings } from "~/api/bindings"
 
 export class RuntimeContext extends Context.Tag("RuntimeContext")<
   RuntimeContext,

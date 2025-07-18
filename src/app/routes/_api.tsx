@@ -1,7 +1,7 @@
 import { ConfigProvider, Effect, Layer, pipe } from "effect"
 
 import { server } from "~/api/api.server"
-import { RuntimeContext } from "~/api/services/runtime-context"
+import { RuntimeContext } from "~/api/core/services/runtime-context"
 
 import type { Route } from "./+types/_api"
 
