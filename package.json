@@ -21,7 +21,7 @@
     "preview": "pnpm run build && vite preview",
     "test": "vitest",
     "typecheck": "pnpm run typegen && tsc -b",
-    "typegen": "wrangler types &&react-router typegen"
+    "typegen": "wrangler types && react-router typegen"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged"
@@ -30,6 +30,9 @@
     "*": "pnpm run lint --fix"
   },
   "dependencies": {
+    "@effect/rpc": "^0.65.2",
+    "@effect/sql-d1": "^0.40.0",
+    "@effect/sql-drizzle": "^0.41.0",
     "@hono/zod-validator": "^0.7.1",
     "better-auth": "^1.2.12",
     "consola": "^3.4.2",
@@ -45,6 +48,8 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.9.5",
     "@echristian/eslint-config": "^0.0.46",
+    "@effect/language-service": "^0.27.2",
+    "@libsql/client": "^0.15.10",
     "@react-router/dev": "^7.6.3",
     "@tailwindcss/vite": "^4.1.11",
     "@types/node": "^20.19.8",

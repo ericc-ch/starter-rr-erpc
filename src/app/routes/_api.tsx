@@ -1,7 +1,7 @@
-import { ConfigProvider, Effect, Layer, pipe } from "effect"
+import { ConfigProvider, Effect, pipe } from "effect"
 
 import { server } from "~/api/api.server"
-import { RuntimeContext } from "~/api/core/services/runtime-context"
+import { buildAppService } from "~/services/_app"
 
 import type { Route } from "./+types/_api"
 
@@ -9,18 +9,14 @@ const routeToHono = (params: Route.LoaderArgs) => {
   const callHono = async () =>
     await server.fetch(params.request, params.context)
 
-  const RuntimeContextLive = Layer.succeed(
-    RuntimeContext,
-    RuntimeContext.of({
-      context: params.context,
-    }),
-  )
+  const AppLive = buildAppService(params.context)
 
   const apiCall = pipe(
     Effect.tryPromise(() => callHono()),
     Effect.withConfigProvider(ConfigProvider.fromJson(params.context)),
   )
-  return pipe(Effect.provide(apiCall, RuntimeContextLive), Effect.runPromise)
+
+  return pipe(Effect.provide(apiCall, AppLive), Effect.runPromise)
 }
 
 export async function loader(params: Route.LoaderArgs) {

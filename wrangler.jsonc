@@ -19,7 +19,7 @@
   },
   "d1_databases": [
     {
-      "binding": "DB",
+      "binding": "D1",
       "database_name": "starter-web",
       "database_id": "fc4289e6-0f7b-4e75-92b6-e0942db0538b",
       "migrations_dir": "./drizzle"

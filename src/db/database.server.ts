@@ -1,10 +1,10 @@
-import { drizzle } from "drizzle-orm/d1"
+import type { LibSQLDatabase } from "drizzle-orm/libsql"
 
-import { books } from "./schemas/books.sql"
+import { type DrizzleD1Database } from "drizzle-orm/d1"
 
-export const getDB = (db: D1Database) =>
-  drizzle(db, {
-    schema: {
-      books,
-    },
-  })
+import { type DatabaseSchema } from "./schema/_schema"
+
+// LibSQL is used for in memory testing database
+export type DrizzleDatabase =
+  | DrizzleD1Database<DatabaseSchema>
+  | LibSQLDatabase<DatabaseSchema>
