@@ -10,6 +10,7 @@ declare module "react-router" {
 }
 
 const requestHandler = createRequestHandler(
+  // @ts-expect-error Error because of exactOptionalPropertyTypes
   () => import("virtual:react-router/server-build"),
   import.meta.env.MODE,
 )
