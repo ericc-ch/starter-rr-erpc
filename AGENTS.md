@@ -1,23 +1,25 @@
 # AGENTS.md
 
 ## Commands
-- **Build**: `pnpm run build`
-- **Dev**: `pnpm run dev`
-- **Test**: `pnpm run test` or `vitest` (single test: `vitest path/to/test.test.tsx`)
-- **Lint**: `pnpm run lint` (fix: `pnpm run lint --fix`)
-- **Typecheck**: `pnpm run typecheck`
-- **Database**: `pnpm run db:generate` (schema), `pnpm run db:migrate:local` (apply)
+
+- **Build**: `bun run build`
+- **Dev**: `bun run dev`
+- **Test**: `bun run test` or `vitest` (single test: `vitest path/to/test.test.tsx`)
+- **Lint**: `bun run lint` (auto-fix: `bun run lint --fix`)
+- **Typecheck**: `bun run typecheck`
+- **Database**: `bun run db:generate` (schema), `bun run db:migrate:local` (apply)
 
 ## Code Style
-- **Formatting**: Formatting is handled by ESLint. Run `pnpm run lint --fix` to format code.
-- **Package Manager**: Use `pnpm` exclusively
-- **Imports**: Use `~/` alias for src/, no relative imports beyond parent directory
-- **Types**: Strict TypeScript, explicit return types for exported functions
-- **React**: Functional components with proper typing (`Route.ComponentProps`)
-- **API**: Hono framework, handlers in separate files, use Zod validation
-- **Database**: Drizzle ORM with SQLite, schemas in `~/db/schemas/`
-- **Naming**: camelCase for functions/variables, PascalCase for components
-- **JSDoc**: Document public API functions with proper param/return types
-- **Error Handling**: Use appropriate HTTP status codes, validate inputs
-- **Max Params**: Functions limited to 5 parameters (ESLint rule)
-- **Documentation Updates**: When code changes make any part of AGENTS.md outdated or no longer relevant, update AGENTS.md to accurately reflect the current state of the codebase.
+
+- **Formatting**: Use ESLint (`bun run lint --fix`). Follows `@echristian/eslint-config` (TypeScript, React, hooks, a11y, max 5 params).
+- **Imports**: Use `~/` alias for `src/`, avoid deep relative imports.
+- **Types**: Strict TypeScript; all exported functions/components must have explicit return types.
+- **React**: Functional components only, typed with `Route.ComponentProps`.
+- **API**: Use Hono framework; handlers in separate files; validate with Zod.
+- **Database**: Drizzle ORM (SQLite); schemas in `~/db/schema/`.
+- **Naming**: camelCase for variables/functions, PascalCase for components.
+- **JSDoc**: Document all public API functions with param/return types.
+- **Error Handling**: Use correct HTTP status codes, validate all inputs.
+- **Max Params**: Functions limited to 5 parameters (ESLint enforced).
+- **Pre-commit**: Lint staged files with auto-fix.
+- **Documentation**: Update AGENTS.md if code changes make it outdated.

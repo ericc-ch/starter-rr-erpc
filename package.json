@@ -13,27 +13,29 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate:local": "wrangler d1 migrations apply starter-web --local",
     "db:migrate:staging": "wrangler d1 migrations apply <staging-db> --env staging",
-    "deploy": "pnpm run build && wrangler deploy",
+    "deploy": "bun run build && wrangler deploy",
     "dev": "react-router dev",
     "lint": "eslint . --cache",
-    "postinstall": "pnpm run typegen",
+    "postinstall": "bun run typegen",
     "prepare": "simple-git-hooks",
-    "preview": "pnpm run build && vite preview",
+    "preview": "bun run build && vite preview",
     "test": "vitest",
-    "typecheck": "pnpm run typegen && tsc -b",
+    "typecheck": "bun run typegen && tsc -b",
     "typegen": "wrangler types && react-router typegen"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm exec lint-staged"
+    "pre-commit": "bunx lint-staged"
   },
   "lint-staged": {
-    "*": "pnpm run lint --fix"
+    "*": "bun run lint --fix"
   },
   "dependencies": {
+    "@effect/platform": "^0.88.2",
+    "@effect/platform-node": "^0.91.0",
     "@effect/rpc": "^0.65.2",
     "@effect/sql-d1": "^0.40.0",
     "@effect/sql-drizzle": "^0.41.0",
-    "@hono/zod-validator": "^0.7.1",
+    "@hono/zod-validator": "^0.7.2",
     "better-auth": "^1.2.12",
     "consola": "^3.4.2",
     "drizzle-orm": "^0.44.3",
@@ -42,17 +44,17 @@
     "isbot": "^5.1.28",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router": "^7.6.3",
+    "react-router": "^7.7.0",
     "zod": "^4.0.5"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.9.5",
+    "@cloudflare/vite-plugin": "^1.9.6",
     "@echristian/eslint-config": "^0.0.46",
     "@effect/language-service": "^0.27.2",
     "@libsql/client": "^0.15.10",
-    "@react-router/dev": "^7.6.3",
+    "@react-router/dev": "^7.7.0",
     "@tailwindcss/vite": "^4.1.11",
-    "@types/node": "^20.19.8",
+    "@types/node": "^20.19.9",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitest/browser": "^3.2.4",
@@ -64,11 +66,13 @@
     "simple-git-hooks": "^2.13.0",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
-    "vite": "^7.0.4",
+    "vite": "^7.0.5",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4",
     "vitest-browser-react": "^1.0.0",
-    "wrangler": "^4.24.4"
+    "wrangler": "^4.25.0"
   },
-  "packageManager": "pnpm@10.13.1"
+  "trustedDependencies": [
+    "simple-git-hooks"
+  ]
 }

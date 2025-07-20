@@ -3,7 +3,7 @@
   "mcp": {
     "effect": {
       "type": "local",
-      "command": ["bun", "x", "effect-mcp@latest"],
+      "command": ["bunx", "effect-mcp@latest"],
       "enabled": true
     }
   }
