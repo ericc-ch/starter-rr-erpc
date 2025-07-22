@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Commit Policy
+
+- **Grouping**: When committing changes, do not commit all at once. Group commits by related changes (e.g., documentation, backend, frontend, tests) for clarity and maintainability.
+
 ## Commands
 
 - **Build**: `bun run build`
