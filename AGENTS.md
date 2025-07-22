@@ -5,13 +5,14 @@
 - **Build**: `bun run build`
 - **Dev**: `bun run dev`
 - **Test**: `bun run test` or `vitest` (single test: `vitest path/to/test.test.tsx`)
-- **Lint**: `bun run lint` (auto-fix: `bun run lint --fix`)
+- **Lint (all files)**: `bun run lint:all` (auto-fix: `bun run lint:all --fix`)
+- **Lint staged files (pre-commit)**: `bun run lint`
 - **Typecheck**: `bun run typecheck`
 - **Database**: `bun run db:generate` (schema), `bun run db:migrate:local` (apply)
 
 ## Code Style
 
-- **Formatting**: Use ESLint (`bun run lint --fix`). Follows `@echristian/eslint-config` (TypeScript, React, hooks, a11y, max 5 params).
+- **Formatting**: Use ESLint (`bun run lint:all --fix` for all files, or `bun run lint` for staged files). Follows `@echristian/eslint-config` (TypeScript, React, hooks, a11y, max 5 params).
 - **Imports**: Use `~/` alias for `src/`, avoid deep relative imports.
 - **Types**: Strict TypeScript; all exported functions/components must have explicit return types.
 - **React**: Functional components only, typed with `Route.ComponentProps`.
