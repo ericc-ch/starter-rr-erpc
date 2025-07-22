@@ -1,30 +1,13 @@
-import { ConfigProvider, Effect, pipe } from "effect"
-
-import { server } from "~/api/api.server"
-import { buildAppService } from "~/services/_app"
+import { handler } from "~/backend/handler.server"
 
 import type { Route } from "./+types/_api"
 
-const routeToHono = (params: Route.LoaderArgs) => {
-  const callHono = async () =>
-    await server.fetch(params.request, params.context)
-
-  const AppLive = buildAppService(params.context)
-
-  const apiCall = pipe(
-    Effect.tryPromise(() => callHono()),
-    Effect.withConfigProvider(ConfigProvider.fromJson(params.context)),
-  )
-
-  return pipe(Effect.provide(apiCall, AppLive), Effect.runPromise)
+export async function loader({ request, context }: Route.LoaderArgs) {
+  return await handler(request, context)
 }
 
-export async function loader(params: Route.LoaderArgs) {
-  return await routeToHono(params)
-}
-
-export async function action(params: Route.LoaderArgs) {
-  return await routeToHono(params)
+export async function action({ request, context }: Route.ActionArgs) {
+  return await handler(request, context)
 }
 
 /**
