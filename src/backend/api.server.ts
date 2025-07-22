@@ -6,19 +6,10 @@
  * https://reactrouter.com/api/framework-conventions/server-modules
  */
 
-import { Hono } from "hono"
-import { logger } from "hono/logger"
+import { HttpApp, HttpRouter, HttpServerResponse } from "@effect/platform"
 
-import { routes } from "./routes/routes"
+const router = HttpRouter.empty.pipe(
+  HttpRouter.get("/", HttpServerResponse.text("Hello World")),
+)
 
-/**
- * The reason we're using method chaining is because
- * somehow Hono RPC won't work without it, the typing is lost
- */
-
-export const server = new Hono()
-  .basePath("/api")
-  .use(logger())
-  .route("/", routes)
-
-export type ServerType = typeof server
+export const handler = HttpApp.toWebHandler(router)
