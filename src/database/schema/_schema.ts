@@ -3,7 +3,7 @@ import { books } from "./books.sql"
 
 export const schema = {
   ...auth,
-  books: books,
+  books,
 }
 
 export type DatabaseSchema = typeof schema
