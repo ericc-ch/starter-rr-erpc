@@ -12,3 +12,5 @@ export class Auth extends Effect.Service<Auth>()("service/Auth", {
     })
   }),
 }) {}
+
+export const auth = Auth.Service
