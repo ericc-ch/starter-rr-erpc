@@ -1,5 +1,5 @@
 import { betterAuth } from "better-auth"
-import { drizzleAdapter } from "better-auth/adapters/drizzle"
+import { drizzleAdapter, type DB } from "better-auth/adapters/drizzle"
 import { Effect } from "effect"
 
 import { Database } from "./database"
@@ -13,4 +13,10 @@ export class Auth extends Effect.Service<Auth>()("service/Auth", {
   }),
 }) {}
 
-export const auth = Auth.Service
+// Fake auth config so better-auth can resolve it
+
+const fakeDB: DB = {}
+
+export const auth = betterAuth({
+  database: drizzleAdapter(fakeDB, { provider: "sqlite" }),
+})
