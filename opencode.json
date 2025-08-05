@@ -1,6 +1,34 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "formatter": {
+    "prettier": {
+      "disabled": true
+    },
+    "eslint": {
+      "command": ["bun", "run", "lint", "--fix", "$FILE"],
+      "extensions": [".js", ".ts", ".jsx", ".tsx"]
+    }
+  },
+
   "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "docker",
+        "container",
+        "run",
+        "-i",
+        "--rm",
+        "--init",
+        "mcr.microsoft.com/playwright/mcp"
+      ],
+      "enabled": true
+    },
     "effect": {
       "type": "local",
       "command": ["bunx", "effect-mcp@latest"],
