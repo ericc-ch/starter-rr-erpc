@@ -52,7 +52,6 @@
     "@cloudflare/vite-plugin": "^1.11.1",
     "@echristian/eslint-config": "^0.0.52",
     "@effect/language-service": "^0.34.0",
-    "@hono/node-server": "^1.18.1",
     "@libsql/client": "^0.15.10",
     "@opencode-ai/plugin": "^0.3.130",
     "@react-router/dev": "^7.7.1",

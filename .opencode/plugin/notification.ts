@@ -4,7 +4,7 @@ import type { Plugin } from "@opencode-ai/plugin"
 
 // 1 minute
 const IDLE_TIME = 1000 * 60
-const NOTIFICATION_SOUND = "complete"
+const NOTIFICATION_COMMAND = `canberra-gtk-play -i complete`
 
 let lastUserMessage = Date.now()
 
@@ -18,10 +18,25 @@ export const notification: Plugin = ({ $, client }) => {
         && event.properties.info.role === "user"
       ) {
         lastUserMessage = Date.now()
+        await client.app.log({
+          body: {
+            level: "info",
+            message: `Set lastUserMessage to ${lastUserMessage}`,
+            service: "notification",
+          },
+        })
       }
 
       if (event.type === "session.idle") {
-        if (Date.now() - lastUserMessage < IDLE_TIME) {
+        const timeSince = Date.now() - lastUserMessage
+        if (timeSince < IDLE_TIME) {
+          await client.app.log({
+            body: {
+              level: "info",
+              message: `Skipping notification, time since last user message: ${timeSince}`,
+              service: "notification",
+            },
+          })
           return
         }
 
@@ -35,13 +50,18 @@ export const notification: Plugin = ({ $, client }) => {
         )
 
         if (session) {
-          message = `Task completed: ${session.title}`
+          message = session.title
         }
 
+        await client.app.log({
+          body: {
+            level: "info",
+            message,
+            service: "notification",
+          },
+        })
         await $`notify-send --app-name "opencode" "${message}"`
-        await $`canberra-gtk-play -i ${NOTIFICATION_SOUND}`
-
-        return
+        await $`${NOTIFICATION_COMMAND}`
       }
     },
   }
