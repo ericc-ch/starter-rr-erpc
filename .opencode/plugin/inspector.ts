@@ -7,37 +7,53 @@ import fs from "node:fs"
 import path from "node:path"
 import { serve } from "srvx"
 
-// Global scope is executed once, during init
-
 const PORT = 6969
 
-const html = fs.readFileSync(
-  path.join(import.meta.dirname, "inspector-view.html"),
-  "utf8",
-)
+const hooksHistory: Array<unknown> = []
+const activeControllers = new Set<ReadableStreamController<unknown>>()
 
-let hooksController: ReadableStreamController<unknown>
-const hooksStream = new ReadableStream<unknown>({
-  start(_controller) {
-    hooksController = _controller
-  },
-})
+function broadcast(data: unknown) {
+  hooksHistory.push(data)
+
+  for (const controller of activeControllers) {
+    controller.enqueue(data)
+  }
+}
 
 const app = new Hono()
   .get("/", (c) => {
+    const html = fs.readFileSync(
+      path.join(import.meta.dirname, "inspector-view.html"),
+      "utf8",
+    )
+
     return c.text(html, 200, {
       "Content-Type": "text/html",
     })
   })
   .get("/hooks", (c) => {
-    return streamSSE(c, async (stream) => {
+    return streamSSE(c, async (sse) => {
+      const hooksStream = new ReadableStream<unknown>({
+        start(controller) {
+          activeControllers.add(controller)
+
+          for (const hook of hooksHistory) {
+            controller.enqueue(hook)
+          }
+
+          sse.onAbort(() => {
+            activeControllers.delete(controller)
+          })
+        },
+      })
+
       const reader = hooksStream.getReader()
 
       while (true) {
         const { value, done } = await reader.read()
         if (done) break
 
-        await stream.writeSSE({
+        await sse.writeSSE({
           data: JSON.stringify(value),
           event: "hook",
         })
@@ -53,36 +69,33 @@ const server = serve({
 
 // Ping otherwise bun will close the connection
 const interval = setInterval(() => {
-  hooksController.enqueue({ hook: "ping" })
+  broadcast({ hook: "ping" })
 }, 5_000)
 
 export const inspector: Plugin = () => {
-  // Function scope is also executed once, during init
-
   return {
     event: (input) => {
-      hooksController.enqueue({ hook: "event", input })
+      broadcast({ hook: "event", input })
     },
     "chat.message": (input, output) => {
-      hooksController.enqueue({ hook: "chat.message", input, output })
+      broadcast({ hook: "chat.message", input, output })
     },
     "chat.params": (input, output) => {
-      hooksController.enqueue({ hook: "chat.params", input, output })
+      broadcast({ hook: "chat.params", input, output })
     },
     "permission.ask": (input, output) => {
-      hooksController.enqueue({ hook: "permission.ask", input, output })
+      broadcast({ hook: "permission.ask", input, output })
     },
     "tool.execute.after": (input, output) => {
-      hooksController.enqueue({ hook: "tool.execute.after", input, output })
+      broadcast({ hook: "tool.execute.after", input, output })
     },
     "tool.execute.before": (input, output) => {
-      hooksController.enqueue({ hook: "tool.execute.before", input, output })
+      broadcast({ hook: "tool.execute.before", input, output })
     },
   }
 }
 
 process.on("exit", () => {
   clearInterval(interval)
-  hooksController.close()
   void server.close()
 })
