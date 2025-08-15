@@ -11,10 +11,11 @@ export class BookRepository extends Effect.Service<BookRepository>()(
       const db = yield* Database
 
       return {
-        findMany: Effect.gen(function* () {
-          const result = yield* db.select().from(books)
-          return result
-        }),
+        findMany: () =>
+          Effect.gen(function* () {
+            const result = yield* db.select().from(books)
+            return result
+          }),
 
         findById: (id: number) =>
           Effect.gen(function* () {
